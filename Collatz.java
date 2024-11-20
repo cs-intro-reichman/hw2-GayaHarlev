@@ -8,8 +8,6 @@ public class Collatz {
             return;
         }
 
-        boolean allSequencesReachOne = true; // משתנה לבדיקת הגעה ל-1 לכל הרצפים
-
         // מצב verbose
         if (mode.equals("v")) {
             for (int seed = 1; seed <= n; seed++) {
@@ -19,13 +17,13 @@ public class Collatz {
                 // הדפסת הרצף
                 System.out.print(current);
                 while (current != 1) {
+                    steps++;
                     if (current % 2 == 0) {
                         current /= 2;
                     } else {
                         current = current * 3 + 1;
                     }
                     System.out.print(" " + current);
-                    steps++;
                 }
                 System.out.println(" (" + (steps + 1) + ")");
             }

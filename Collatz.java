@@ -7,21 +7,23 @@ public class Collatz {
         // לולאה חיצונית לכל המספרים מ-1 עד n
         for (int i = 1; i <= n; i++) {
             int current = i;
-            int count = 1; // סופר את אורך הרצף
+            int count = 0; // סופר את אורך הרצף
             StringBuilder sequence = new StringBuilder(); // לבניית הרצף
             
-            // הוספת המספר ההתחלתי לרצף
-            sequence.append(current);
-            
             // לולאת Collatz
-            while (current != 1) {
+            while (true) {
+                sequence.append(current); // הוספת המספר הנוכחי לרצף
+                count++; // עדכון האורך
+                
+                if (current == 1) break; // אם הגענו ל-1, מסיימים
+                
+                sequence.append(" "); // הוספת רווח בין המספרים
+                
                 if (current % 2 == 0) {
                     current = current / 2; // אם זוגי, חילוק ב-2
                 } else {
                     current = 3 * current + 1; // אם אי-זוגי, כפול 3 + 1
                 }
-                sequence.append(" ").append(current); // הוספת המספר הבא לרצף
-                count++; // עדכון האורך
             }
             
             // הדפסת הרצף אם verbose מופעל

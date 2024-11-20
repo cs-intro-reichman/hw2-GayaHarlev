@@ -1,38 +1,41 @@
 // Demonstrates the Collatz conjecture.
 public class Collatz {
     public static void main(String[] args) {
-        int n = Integer.parseInt(args[0]); // המספר עד אליו נחשב רצפי Collatz
-        boolean verbose = args.length > 1 && args[1].equalsIgnoreCase("v"); // מצב verbose
+        int maxSeed = Integer.parseInt(args[0]); // המספר עד אליו נחשב רצפי Collatz
+        String mode = args[1]; // מצב העבודה: verbose או concise
         
-        // לולאה חיצונית לכל המספרים מ-1 עד n
-        for (int i = 1; i <= n; i++) {
-            int current = i;
-            int count = 0; // סופר את אורך הרצף
+        // בדיקה אם מצב verbose
+        boolean verbose = mode.equals("v");
+        
+        // לולאה חיצונית לכל המספרים מ-1 עד maxSeed
+        for (int seed = 1; seed <= maxSeed; seed++) {
+            int current = seed;
+            int steps = 0; // סופר את אורך הרצף
             StringBuilder sequence = new StringBuilder(); // לבניית הרצף
             
-            // לולאת Collatz
+            // לולאת Collatz עבור המספר הנוכחי
             while (true) {
                 sequence.append(current); // הוספת המספר הנוכחי לרצף
-                count++; // עדכון האורך
+                steps++; // עדכון מספר הצעדים
                 
                 if (current == 1) break; // אם הגענו ל-1, מסיימים
                 
                 sequence.append(" "); // הוספת רווח בין המספרים
                 
                 if (current % 2 == 0) {
-                    current = current / 2; // אם זוגי, חילוק ב-2
+                    current = current / 2; // אם המספר זוגי, חילוק ב-2
                 } else {
-                    current = 3 * current + 1; // אם אי-זוגי, כפול 3 + 1
+                    current = 3 * current + 1; // אם המספר אי-זוגי, כפול 3 + 1
                 }
             }
             
-            // הדפסת הרצף אם verbose מופעל
+            // אם מצב verbose, מדפיסים את הרצף והצעדים
             if (verbose) {
-                System.out.println(sequence + " (" + count + ")");
+                System.out.println(sequence + " (" + steps + ")");
             }
         }
         
-        // הודעת סיום
-        System.out.println("Every one of the first " + n + " hailstone sequences reached 1.");
+        // הודעת סיכום
+        System.out.println("Every one of the first " + maxSeed + " hailstone sequences reached 1.");
     }
 }
